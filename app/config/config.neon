@@ -8,6 +8,7 @@ application:
 
 
 session:
+	autoStart: false
 	expiration: 14 days
 
 
