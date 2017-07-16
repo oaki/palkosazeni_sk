@@ -1,0 +1,6 @@
+app/config/config.local.neon
+composer.lock
+vendor/
+temp/
+node_modules/
+log/
