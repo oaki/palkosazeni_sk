@@ -3,11 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {if $presenter->getParameter('useReduced') == 1}
-        <link rel="stylesheet" type="text/css" href="/css/main-reduced.css" media="all">
-    {else}
+    {if $presenter->getParameter('dontUseReduced') == 1}
         <link rel="stylesheet" type="text/css" href="/css/main.css" media="all">
+    {else}
+        <link rel="stylesheet" type="text/css" href="/css/main-reduced.css" media="all">
     {/if}
+
     <title>Palko a Mirka sa budú brať</title>
     <script type="text/javascript">
         paceOptions = {
