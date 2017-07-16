@@ -20,6 +20,12 @@ Allow from all
 	RewriteRule !\.(pdf|js|ico|gif|jpg|png|css|rar|zip|tar\.gz|map)$ index.php [L]
 </IfModule>
 
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
 # enable gzip compression
 <IfModule mod_deflate.c>
 	<IfModule mod_filter.c>
