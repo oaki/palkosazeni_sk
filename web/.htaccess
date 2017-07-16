@@ -17,14 +17,8 @@ Allow from all
     RewriteCond %{HTTP_HOST} ^palkosazeni\.sk$
     RewriteRule ^(.*)$ https://www.palkosazeni.sk/$1 [R=301,L]
 
-    RewriteCond %{HTTP_HOST} !^www.palkosazeni\.sk$
-    RewriteRule ^(.*)$ https://www.palkosazeni.sk/$1 [R=301,L]
-
     RewriteCond %{HTTP_HOST} ^mirkasavydava\.sk$
-    RewriteRule ^(.*)$ https://www.mirkasavydava.sk/$1 [R=301,L]
-
-    RewriteCond %{HTTP_HOST} !^www.mirkasavydava\.sk$
-    RewriteRule ^(.*)$ https://www.mirkasavydava.sk/$1 [R=301,L]
+    RewriteRule ^(.*)$ https://www.mirkasavydava.sk/$1 [R=301,L]L]
 
 	# front controller
 	RewriteCond %{REQUEST_FILENAME} !-f
