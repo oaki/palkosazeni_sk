@@ -3,4 +3,3 @@ composer.lock
 vendor/
 temp/
 node_modules/
-log/
