@@ -32,3 +32,18 @@ Allow from all
 		AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json application/xml image/svg+xml
 	</IfModule>
 </IfModule>
+#
+#<IfModule mod_expires.c>
+#  ExpiresActive On
+#  ExpiresDefault "access plus 2 months 12 days 2 hours"
+#
+#  ExpiresByType image/gif "access plus 2 months 12 days 2 hours"
+#  ExpiresByType image/jpg "access plus 2 months 12 days 2 hours"
+#  ExpiresByType image/jpeg "access plus 2 months 12 days 2 hours"
+#  ExpiresByType image/png "access plus 2 months 12 days 2 hours"
+#
+#  ExpiresByType text/css "access plus 2 months 12 days 2 hours"
+#  ExpiresByType text/javascript "access plus 2 months 12 days 2 hours"
+#
+#  ExpiresByType text/html A1
+#</IfModule>
