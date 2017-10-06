@@ -25,6 +25,7 @@
                 </div>
                 <div class="hero-slide-overlay" style="background-color: rgba(130,160,150,0.3)"></div>
             </div>
+
             <div id="hero-slide-1" class="hero-slide">
                 <div class="hero-slide-background section-background">
                     <img class="image-bg" alt=""
@@ -35,6 +36,7 @@
                 </div>
                 <div class="hero-slide-overlay" style="background-color: rgba(130,160,150,0.3)"></div>
             </div>
+
             <div id="hero-slide-2" class="hero-slide">
                 <div class="hero-slide-background section-background">
                     <img class="image-bg" alt=""
@@ -89,6 +91,7 @@
 
                                 {include 'intro.latte'}
                                 {include 'countdown.latte'}
+                                {include 'gallery.latte'}
                                 {*{include 'groom-bride.latte'}*}
                                 {include 'when-where.latte'}
                                 {include 'map.latte'}
@@ -102,7 +105,7 @@
                                 {*{include 'groomsmen.latte'}*}
                                 {include 'quote.latte'}
                                 {include 'program.latte'}
-                                {include 'gallery.latte'}
+
                                 {*{include 'blog.latte'}*}
 
 
@@ -123,20 +126,11 @@
             <div class="footer-copyright site-info"> Copyright © 2017 photographs by <a href="http://tomasbencik.com/"
                                                                                         target="_blank">Tomáš Benčík</a>
                 — programing by
-                <a href="https://www.bincik.sk/" target="_blank">Binco</a>
+                <a href="https://www.bincik.sk/" target="_blank">Pavol Bincik</a>
             </div>
         </div>
     </footer>
-    <div id="background-music" class="background-music background-music-bottom-left">
-        <button class="background-music-toggle toggle"><span class="fa fa-music"></span></button>
-        <div class="background-music-embed">
 
-
-            <iframe width="100%" height="166" scrolling="no" frameborder="no"
-                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/134815445&amp;color=b4d2c8&amp;auto_play=true&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false"></iframe>
-
-        </div>
-    </div>
 </div>
 
 <script type='text/javascript'>/*  */
@@ -147,8 +141,11 @@
 {*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>*}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script type="text/javascript" src="/js/main.js"></script>
-
+<script type="text/javascript" src="/js/main.js?v=1.5"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.3.0/lazyload.min.js"></script>
+<script type='text/javascript'>
+    new LazyLoad();
+</script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQqbD_-amw93BJFoir8Z_VH9B3keppX9k&callback=initMap">
 </script>

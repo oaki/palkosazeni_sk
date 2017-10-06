@@ -14,6 +14,10 @@ Allow from all
 	# prevents files starting with dot to be viewed by browser
 	RewriteRule /\.|^\.(?!well-known/) - [F]
 
+    RewriteCond %{REQUEST_URI} ^/thumbs/(.*)\.(jpg|png|gif)$
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule (.*) /index.php [L]
+
     RewriteCond %{HTTP_HOST} ^palkosazeni\.sk$
     RewriteRule ^(.*)$ https://www.palkosazeni.sk/$1 [R=301,L]
 

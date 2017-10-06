@@ -4,15 +4,18 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $configurator = new Nette\Configurator;
 
-$configurator->setDebugMode('78.99.96.218'); // enable for your remote IP
+$configurator->setDebugMode('37.58.7.155'); // enable for your remote IP
+
+
 $configurator->enableTracy(__DIR__ . '/../log');
 
 $configurator->setTimeZone('Europe/Prague');
 $configurator->setTempDirectory(__DIR__ . '/../temp');
+$configurator->addParameters(['baseUri' => dirname(__FILE__)]);
 
 $configurator->createRobotLoader()
-	->addDirectory(__DIR__)
-	->register();
+    ->addDirectory(__DIR__)
+    ->register();
 
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 //$configurator->addConfig(__DIR__ . '/config/config.local.neon');

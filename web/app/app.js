@@ -5523,3 +5523,6 @@ window.initMap = function() {
         map      : map
     });
 }
+
+
+// import "jquery.fancybox.min.js";

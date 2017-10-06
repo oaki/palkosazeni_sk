@@ -1,5 +1,10 @@
 parameters:
-
+    webimages:
+        uploadDir: %wwwDir%/uploaded/system_files/original
+        uploadUrl: %baseUri%/uploaded/system_files/original
+        tempDir: %wwwDir%/thumbs
+        tempUrl: https://www.palkosazeni.sk/thumbs
+        hash: *
 
 application:
 	errorPresenter: Error
@@ -12,6 +17,8 @@ session:
 	expiration: 14 days
 	savePath: "%tempDir%/sessions"
 
-
 services:
 	router: App\RouterFactory::createRouter
+	ImageGenerator:
+		factory: \App\Model\Image\Generator
+		arguments: [%webimages%]

@@ -17,6 +17,7 @@ class RouterFactory
 	public static function createRouter()
 	{
 		$router = new RouteList;
+        $router[] = new Route('/thumbs/<fileName>', 'Preview:default');
 		$router[] = new Route('https://www.%domain%/<presenter>/<action>[/<id>]', 'Homepage:default');
 		return $router;
 	}
