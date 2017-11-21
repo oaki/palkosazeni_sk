@@ -12,7 +12,7 @@
                                     style="color: #dcc8b4">Galéria</h2>
                             <p class="palko-mirka-sow-section-subheading"
                                style="color: #888888">
-                                Po svadbe tu nájdete naše spoločné chvíle.
+                                Naše spoločné chvíle.
                             </p></header>
                     </div>
                 </div>
@@ -24,11 +24,14 @@
                 <div class="palko-mirka-animation-fade-in-up panel-widget-style panel-widget-style-for-7-9-0-1">
                     <div class="so-widget-palko-mirka-sow-gallery-grid so-widget-palko-mirka-sow-gallery-grid-default-d75171398898">
                         <div class="palko-mirka-sow-gallery-grid">
+                            <a href="{link loadGallery! galleryName=>\GalleryModel::SVADOBNE}" class="ajax">Svadobne</a>
                             <div class="palko-mirka-sow-gallery-grid-filters">
                                 {*<a href="#"*}
                                    {*class="palko-mirka-sow-gallery-grid-filter active"*}
                                    {*data-filter="*">All*}
                                     {*photos</a>*}
+
+
 
                                 <a href="#"
                                    class="palko-mirka-sow-gallery-grid-filter active"
@@ -36,26 +39,15 @@
 
 
                                 <a href="#"
-                                   class="palko-mirka-sow-gallery-grid-filter active"
+                                   class="palko-mirka-sow-gallery-grid-filter"
                                    data-filter=".palko-mirka-vyleti-vtacik">Vyletí vtáčik</a>
                             </div>
 
+                            {snippet #gallery}
                             <div class="palko-mirka-sow-gallery-grid-items palko-mirka-sow-gallery-grid-4-columns lightgallery clear">
-                                {foreach $vyletiVtacik as $img}
-                                <div class="palko-mirka-sow-gallery-grid-item palko-mirka-vyleti-vtacik">
 
-                                    {var $imageInfo = [
-            'filename'=>$img,
-            'alt'=>'test',
-            'class'=>'attachment-grid size-grid'
-            ]}
-
-                                    {$imageInfo|imageWithSizes|noescape}
-                                </div>
-                                {/foreach}
-
-                                {foreach $predsvadobne as $img}
-                                    <div class="palko-mirka-sow-gallery-grid-item palko-mirka-predsvadobne">
+                                {foreach $gallery as $img}
+                                    <div class="palko-mirka-sow-gallery-grid-item palko-mirka-svadobne">
 
                                         {var $imageInfo = [
             'filename'=>$img,
@@ -66,6 +58,7 @@
                                         {$imageInfo|imageWithSizes|noescape}
                                     </div>
                                 {/foreach}
+
                                 {*
                                 <div class="palko-mirka-sow-gallery-grid-item palko-mirka-sow-withfriends">
                                     <a href="/img/gallery7.jpg">
@@ -126,6 +119,7 @@
 
                                 *}
                             </div>
+                            {/snippet}
                         </div>
                     </div>
                 </div>

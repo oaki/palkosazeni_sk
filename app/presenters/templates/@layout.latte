@@ -91,7 +91,94 @@
 
                                 {include 'intro.latte'}
                                 {include 'countdown.latte'}
-                                {include 'gallery.latte'}
+                                {*{include 'gallery.latte'}*}
+
+                                <div id="pg-7-9" class="panel-grid panel-has-style">
+                                    <div id="galeria" data-palko-mirka-anchor="gallery"
+                                         class="panel-row-style panel-row-style-for-7-9">
+                                        <div id="pgc-7-9-0" class="panel-grid-cell">
+                                            <div id="panel-7-9-0-0"
+                                                 class="so-panel widget widget_palko-mirka-sow-section-heading panel-first-child"
+                                                 data-index="17">
+                                                <div class="palko-mirka-animation-fade-in panel-widget-style panel-widget-style-for-7-9-0-0">
+                                                    <div class="so-widget-palko-mirka-sow-section-heading so-widget-palko-mirka-sow-section-heading-default-d75171398898">
+                                                        <header class="palko-mirka-sow-section-header align-center"><h2
+                                                                    class="palko-mirka-sow-section-heading typography-section-heading"
+                                                                    style="color: #dcc8b4">Galéria</h2>
+                                                            <p class="palko-mirka-sow-section-subheading"
+                                                               style="color: #888888">
+                                                                Naše spoločné chvíle.
+                                                            </p></header>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="panel-7-9-0-1"
+                                                 class="lazy-loading-container so-panel widget widget_palko-mirka-sow-gallery-grid panel-last-child"
+                                                 data-index="18">
+                                                <div class="palko-mirka-animation-fade-in-up panel-widget-style panel-widget-style-for-7-9-0-1">
+                                                    <div class="so-widget-palko-mirka-sow-gallery-grid so-widget-palko-mirka-sow-gallery-grid-default-d75171398898">
+                                                        <div class="palko-mirka-sow-gallery-grid observe-area">
+
+
+                                                            {snippet #gallery}
+
+                                                                {cache $presenter->galleryName}
+                                                            <div class="palko-mirka-sow-gallery-grid-filters">
+                                                                {*<a href="#"*}
+                                                                                {*class="palko-mirka-sow-gallery-grid-filter active"*}
+                                                                                {*data-filter="*">All*}
+                                                                                {*photos</a>*}
+                                                                <a href="{link loadGallery! galleryName=>\GalleryModel::SVADOBNE}"
+                                                                   class="ajax first-wedding-gallery {if $presenter->galleryName === \GalleryModel::SVADOBNE} active{/if}">Svadobne</a>
+
+                                                                <a href="{link loadGallery! galleryName=>\GalleryModel::PREDSVADOBNE}"
+                                                                   class="ajax{if $presenter->galleryName === \GalleryModel::PREDSVADOBNE} active{/if}">Predsvadobne</a>
+
+                                                                <a href="{link loadGallery! galleryName=>\GalleryModel::VYLETI_VTACIK}"
+                                                                   class="ajax{if $presenter->galleryName === \GalleryModel::VYLETI_VTACIK} active{/if}">Vyletí
+                                                                    vtáčik</a>
+
+                                                            </div>
+
+                                                            {if isset($gallery)}
+                                                            <div class="palko-mirka-sow-gallery-grid-items palko-mirka-sow-gallery-grid-4-columns lightgallery clear">
+                                                                {foreach $gallery as $img}
+                                                                <div class="palko-mirka-sow-gallery-grid-item palko-mirka-svadobne">
+                                                                    {var $imageInfo = ['filename'=>$img,'alt'=>'test','class'=>'attachment-grid size-grid']}{$imageInfo|imageWithSizes|noescape}
+                                                                </div>
+                                                                {/foreach}
+                                                            </div>
+
+                                                            <script>
+                                                                if (window.myLazyLoading) {
+                                                                    window.myLazyLoading.update();
+                                                                }
+
+                                                                if (typeof $ !== 'undefined' && $.fn.lightGallery) {
+
+                                                                    $('.lightgallery.palko-mirka-sow-gallery-grid-items').each(function (i, el) {
+                                                                        var $el = $(el);
+                                                                        $el.lightGallery({
+                                                                            selector: '.palko-mirka-sow-gallery-grid-item > a',
+                                                                            download: true
+                                                                        });
+                                                                    });
+                                                                }
+                                                            </script>
+
+                                                            {/if}
+                                                                {/cache}
+                                                            {/snippet}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 {*{include 'groom-bride.latte'}*}
                                 {include 'when-where.latte'}
                                 {include 'map.latte'}
@@ -134,20 +221,89 @@
 </div>
 
 <script type='text/javascript'>/*  */
-    var panelsStyles = {"fullContainer" : "body"};
+    var panelsStyles = {"fullContainer": "body"};
     /*  */</script>
 <script type="text/javascript">document.body.className = document.body.className.replace("siteorigin-panels-before-js", "");</script>
 
 {*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>*}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script type="text/javascript" src="/js/main.js?v=1.5"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.3.0/lazyload.min.js"></script>
-<script type='text/javascript'>
-    new LazyLoad();
+<script type="text/javascript" src="/js/main.js?v=1.8.13"/>
+
+
+<script>
+    //    jQuery(function () {
+    //        jQuery.nette.init();
+    //    });
+
+
+    (function (w, d) {
+        var b = d.getElementsByTagName('body')[0];
+        var s = d.createElement("script");
+        var v = !("IntersectionObserver" in w) ? "8.5.0" : "10.3.3";
+        s.src = "https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/" + v + "/lazyload.js";
+//        w.lazyLoadOptions = {
+//            container: document.getElementsByClassName('lazy-loading-container img'),
+//            data_src: "src",
+//            data_srcset: "srcset"
+//        };
+
+        s.onload = function () {
+            console.log('loaded');
+            var images = document.querySelectorAll(".lazy-loading-container img");
+            window.myLazyLoading = new LazyLoad(images);
+        }
+
+        b.appendChild(s);
+
+
+    }(window, document));
 </script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQqbD_-amw93BJFoir8Z_VH9B3keppX9k&callback=initMap">
+
+<script>
+    if (window.IntersectionObserver) {
+        console.log('IntersectionObserver is supported');
+        var options = {
+            threshold: 0.25
+        }
+
+        var isLoaded = false;
+        var callback = function (entries) {
+            if (entries[0].intersectionRatio !== 0) {
+                if (!isLoaded) {
+                    console.log('loading');
+                    $('.first-wedding-gallery').click();
+                    isLoaded = true;
+                }
+            }
+        }
+
+        var observer = new IntersectionObserver(callback, options);
+
+    }
+
+    $(function () {
+        if (window.IntersectionObserver) {
+            var observeArea = document.querySelector('.observe-area');
+            observer.observe(observeArea);
+        } else {
+            console.log('IntersectionObserver is NOT supported');
+            setTimeout(function () {
+                $('.first-wedding-gallery').click();
+            }, 3000)
+        }
+
+
+        setTimeout(function () {
+            var b = document.getElementsByTagName('body')[0];
+            var s = document.createElement("script");
+            s.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAQqbD_-amw93BJFoir8Z_VH9B3keppX9k&callback=initMap";
+
+            b.appendChild(s);
+        }, 4000)
+
+
+    });
 </script>
 </body>
 </html>
