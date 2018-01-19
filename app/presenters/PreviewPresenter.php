@@ -4,6 +4,7 @@ namespace App\Presenters;
 use Nette,
     Nette\Utils\Image,
     App\Model;
+use Tracy\Debugger;
 
 class PreviewPresenter extends Nette\Application\UI\Presenter
 {
@@ -14,7 +15,17 @@ class PreviewPresenter extends Nette\Application\UI\Presenter
         $imageGenerator = $this->context->getService('ImageGenerator');
         $params = $imageGenerator->decryptThumbFileName($fileName);
 
-        $image = Image::fromFile($params['file']);
+        try {
+            $image = Image::fromFile($params['file']);
+        } catch (Nette\Utils\UnknownImageFileException $e) {
+            // check if extension is webp
+            if ($params['ext'] === 'webp') {
+                $image = Image::fromFile(str_replace('.webp', '.jpg', $params['file']));
+            } else {
+                throw $e;
+            }
+        }
+
 
         //progressive
         $image->interlace(true);
@@ -40,9 +51,17 @@ class PreviewPresenter extends Nette\Application\UI\Presenter
             $image = $blank;
         }
 
-        $image->save($imageGenerator->getThumbFile($params['type'], $params['src'], $params['ext'], $params['width'], $params['height'], $params['flags']));
+        if ($params['ext'] === 'webp') {
+            $image->save($imageGenerator->getThumbFile($params['type'], $params['src'], $params['ext'], $params['width'], $params['height'], $params['flags']),
+                82,
+                Image::WEBP);
+            $image->send(Image::WEBP, $quality = 82);
+        } else {
+            $image->save($imageGenerator->getThumbFile($params['type'], $params['src'], $params['ext'], $params['width'], $params['height'], $params['flags']));
+            $image->send(Image::JPEG, $quality = 100);
+        }
 
-        $image->send(Image::JPEG, $quality = 100);
+
         exit;
     }
 }

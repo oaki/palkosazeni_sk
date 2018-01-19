@@ -2,10 +2,9 @@
 
 namespace App\Model\Image;
 
-use Nette\Object;
 use Tracy\Debugger;
 
-class Generator extends Object
+class Generator extends \Nette\Object
 {
 
     private $uploadDir;
@@ -47,7 +46,11 @@ class Generator extends Object
 
         return $src
             . self::__SEPARATOR__
-            . $crypt->encrypt($type . self::__SEPARATOR__ . $width . self::__SEPARATOR__ . $height . self::__SEPARATOR__ . $flags)
+            . $crypt->encrypt($type .
+                self::__SEPARATOR__ . $width .
+                self::__SEPARATOR__ . $height .
+                self::__SEPARATOR__ . $flags
+            )
             . '.' . $ext;
     }
 
@@ -72,45 +75,6 @@ class Generator extends Object
         }
 
         switch ($type) {
-
-            // placek.cz
-            case '1':
-                $file = $this->getUploadDir() . '/' . $src . '.' . $ext;
-
-                //ak to nie je subor stiahni
-                if (!is_file($file)) {
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'images.placekholding.eu/original/' . $src . '.' . $ext);
-                    curl_setopt($ch, CURLOPT_HEADER, false);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-                    $imageContent = curl_exec($ch);
-                    $retCode      = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-                    if ($retCode == 200) {
-
-                        $fp = fopen($file, "w");
-                        fwrite($fp, $imageContent);
-                        fclose($fp);
-                    }
-
-                    curl_close($ch);
-
-                }
-                break;
-            case 'brand':
-                //tu sa posiela iba nazov znacky, cize obrazok nahrat do adresara brand pod jej nazvom
-                $file = $this->getUploadDir() . '/../brand/' . $src . '.jpg';
-                break;
-            case 'salesPerson':
-                $file = $this->getImportDir() . '/obchodnici/' . $src . '.' . $ext;
-                break;
-//            case 'product':
-//                $file = $this->getImportDir() . '/images/' . $src . '.' . $ext;
-//                break;
-            case 'category':
-                $file = $this->getImportDir() . '/kategorie/' . $src . '.' . $ext;
-                break;
             default:
                 $file = $this->getUploadDir() . '/' . $src . '.' . $ext;
                 break;

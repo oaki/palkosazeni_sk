@@ -5120,7 +5120,7 @@
                 target_top = $target.offset().top - $('.header-section').innerHeight() - $body.offset().top;
                 speed = Math.abs($window.scrollTop() - target_top) / 2.5;
                 if ($target.length) {
-                    $('html, body').animate({scrollTop : target_top,}, speed);
+                    $('html, body').animate({scrollTop: target_top}, 500);
                     $('.header-navigation-toggle').removeClass('active');
                     return false;
                 }
@@ -5360,7 +5360,6 @@ jQuery(function(t) {
 });
 
 window.initMap = function() {
-
     try {
         var kursalon = {
             lat: 48.590461,
@@ -5531,10 +5530,13 @@ window.initMap = function() {
                 }
             ]
         });
+
         var markerKursalon = new google.maps.Marker({
             position: kursalon,
             map: map
         });
+
+
         var markerKostol = new google.maps.Marker({
             position: kostol,
             map: map

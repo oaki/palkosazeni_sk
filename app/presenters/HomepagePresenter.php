@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Model\Image\Generator;
 use Nette;
 use Tracy\Debugger;
 
@@ -14,34 +15,73 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
     public function createTemplate($class = null)
     {
         $template = parent::createTemplate($class);
-        $generator = $this->getContext()->getService('ImageGenerator');
+
+        /**
+         * @var $generator Generator
+         */
+        $generator = $this->context->getService('ImageGenerator');
 
 //        <img width="540" height="737"
 //                                             src="/img/gallery5-540x737.jpg"
 //                                             class="attachment-grid size-grid" alt=""
 //                                             srcset="/img/gallery5-540x737.jpg 540w, /img/gallery5-220x300.jpg 220w, /img/gallery5-768x1048.jpg 768w, /img/gallery5-750x1024.jpg 750w, /img/gallery5.jpg 1080w"
 //                                             sizes="(max-width: 540px) 100vw, 540px"/>
-        $template->addFilter('imageWithSizes', function ($arr) use ($generator) {
+
+        $isBeta = $this->context->getParameters()['debugMode'];
+
+Debugger::barDump($isBeta);
+        $isBeta  = false;
+
+        $template->addFilter('imageWithSizes', function ($arr) use ($generator, $isBeta) {
             $file = $generator->getUploadDir() . '/' . $arr['filename'];
 
-
             $image_array = $generator->getFileNameAndExtension($file);
+
+            $image85 = $generator->getThumbUrl('default', $image_array['src'], $image_array['ext'], 80, 60, 5);
             $image300 = $generator->getThumbUrl('default', $image_array['src'], $image_array['ext'], 383, 287, 5);
-
-
+            $image519 = $generator->getThumbUrl('default', $image_array['src'], $image_array['ext'], 490, 367, 5);
             $image1024 = $generator->getThumbUrl('default', $image_array['src'], $image_array['ext'], 1536, 1280, 5);
 
-            $image519 = $generator->getThumbUrl('default', $image_array['src'], $image_array['ext'], 490, 367, 5);
+            $image300Webp = $generator->getThumbUrl('default', $image_array['src'], 'webp', 383, 287, 5);
+            $image519Webp = $generator->getThumbUrl('default', $image_array['src'], 'webp', 490, 367, 5);
 
-            return '<a href="' . $image1024 . '" class="image-wrapper">
-            <img data-src="' . $image300 . '" data-srcset="' . $image300 . ' 1024w, ' . $image519 . ' 519w" class="lazy-load-image" alt="' . '' . '" /></a>';
+
+            if ($isBeta) {
+                return '<a href="' . $image1024 . '" class="image-wrapper">
+                <picture class="lazy-load-image">
+                      <source type="image/webp" media="(min-width: 1024px)" srcset="' . $image300Webp . '">
+                      <source type="image/webp" media="(min-width: 519px)" srcset="' . $image519Webp . '">
+                      
+                      <source type="image/jpeg" media="(min-width: 1024px)" srcset="' . $image300 . '">
+                      <source type="image/jpeg" media="(min-width: 519px)" srcset="' . $image519 . '">
+                      
+                      <img data-src="' .
+                    $image300 . '" data-srcset="' .
+                    $image300 . ' 1024w, ' .
+                    $image519 . ' 519w" class="lazy-load-image" alt="' . '' . '" />
+
+                </picture>
+            </a>';
+
+            } else {
+                return '<a href="' . $image1024 . '" class="image-wrapper">
+            <img 
+            data-src="' . $image300 . '" 
+            data-srcset="' . $image300 . ' 300w, ' . $image519 . ' 519w"
+            data-sizes="(max-width: 320px) 300px, (max-width: 480px) 440px, 800px"
+            class="lazy-load-image" alt="" />
+            </a>';
+
+            }
+
         });
 
 
         return $template;
     }
 
-    public function handleLoadGallery($galleryName)
+    public
+    function handleLoadGallery($galleryName)
     {
 //        $gallery = new \GalleryModel();
 
@@ -51,7 +91,8 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 //        $this->sendPayload();
     }
 
-    public function renderDefault()
+    public
+    function renderDefault()
     {
         $wwwDir = $this->context->parameters['wwwDir'];
 

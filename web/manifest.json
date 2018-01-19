@@ -1,5 +1,12 @@
 {
- "name": "App",
+ "name": "Palo's wedding page - Palko sa zeni.",
+ "short_name": "Palo's wedding page",
+ "start_url": "/",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#485039",
+ "theme_color": "#dcc8b4",
+ "orientation": "portrait",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
@@ -36,6 +43,13 @@
    "sizes": "192x192",
    "type": "image\/png",
    "density": "4.0"
+  },
+  {
+   "src": "\/android-icon-192x192.png",
+   "sizes": "512x512",
+   "type": "image\/png",
+   "density": "4.0"
   }
+
  ]
 }

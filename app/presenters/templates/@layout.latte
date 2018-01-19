@@ -224,7 +224,7 @@
     <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css?v=2.5" media="all">
 </noscript>
 <script>
-    var loadDeferredStyles = function() {
+    var loadDeferredStyles = function () {
         var addStylesNode = document.getElementById("deferred-styles");
         var replacement = document.createElement("div");
         replacement.innerHTML = addStylesNode.textContent;
@@ -233,7 +233,9 @@
     };
     var raf = requestAnimationFrame || mozRequestAnimationFrame ||
         webkitRequestAnimationFrame || msRequestAnimationFrame;
-    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+    if (raf) raf(function () {
+        window.setTimeout(loadDeferredStyles, 0);
+    });
     else window.addEventListener('load', loadDeferredStyles);
 </script>
 
@@ -259,11 +261,6 @@
         var s = d.createElement("script");
         var v = !("IntersectionObserver" in w) ? "8.5.0" : "10.3.3";
         s.src = "https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/" + v + "/lazyload.js";
-//        w.lazyLoadOptions = {
-//            container: document.getElementsByClassName('lazy-loading-container img'),
-//            data_src: "src",
-//            data_srcset: "srcset"
-//        };
 
         s.onload = function () {
             console.log('loaded');
@@ -278,6 +275,16 @@
 </script>
 
 <script>
+
+
+    function initGoogleMap() {
+        var b = document.getElementsByTagName('body')[0];
+        var s = document.createElement("script");
+        s.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAQqbD_-amw93BJFoir8Z_VH9B3keppX9k&callback=initMap";
+
+        b.appendChild(s);
+    }
+
     if (window.IntersectionObserver) {
         console.log('IntersectionObserver is supported');
         var options = {
@@ -297,30 +304,41 @@
 
         var observer = new IntersectionObserver(callback, options);
 
+
+        var isLoadedGoogleMap = false;
+        var callbackGoogleMap = function (entries) {
+            if (entries[0].intersectionRatio !== 0) {
+                if (!isLoadedGoogleMap) {
+                    initGoogleMap();
+                    isLoadedGoogleMap = true;
+                }
+            }
+        }
+        var observerGoogleMap = new IntersectionObserver(callbackGoogleMap, options);
+
     }
+
 
     $(function () {
         if (window.IntersectionObserver) {
             var observeArea = document.querySelector('.observe-area');
             observer.observe(observeArea);
+
+            var observeAreaGoogleMap = document.querySelector('.widget_palko-mirka-sow-google-maps');
+            observerGoogleMap.observe(observeAreaGoogleMap);
+
         } else {
             console.log('IntersectionObserver is NOT supported');
             setTimeout(function () {
                 $('.first-wedding-gallery').click();
-            }, 3000)
+            }, 3000);
+
+            setTimeout(function () {
+                initGoogleMap();
+            }, 4000)
         }
-
-
-        setTimeout(function () {
-            var b = document.getElementsByTagName('body')[0];
-            var s = document.createElement("script");
-            s.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAQqbD_-amw93BJFoir8Z_VH9B3keppX9k&callback=initMap";
-
-            b.appendChild(s);
-        }, 4000)
-
-
     });
 </script>
+
 </body>
 </html>
